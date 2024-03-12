@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enrollments', function (Blueprint $table) {
+        Schema::create('attendences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('StudentID')->constrained('students');
-            $table->foreignId('CourseID')->constrained('courses');
-            $table->date('EnrollmentDate');
+            $table->foreignId('EnrollmentID')->constrained('enrollments');
+            $table->foreignId('ClassID')->constrained('classes');
+            $table->date('AttendenceDate');
+            $table->enum('Status', ['Present', 'Absent'])->default('Absent');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enrollments');
+        Schema::dropIfExists('attendences');
     }
 };
